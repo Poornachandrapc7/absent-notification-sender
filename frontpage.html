@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Messaging Method</title>
+    <style>
+        html, body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background-color: #0D1B2A;
+            color: #E0E1DD;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #00A8E8;
+            color: white;
+            padding: 12px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+        }
+        .school-name {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 16px;
+        }
+        .menu-container {
+            position: relative;
+            display: inline-block;
+        }
+        .hamburger-icon {
+            font-size: 15px;
+            cursor: pointer;
+            padding: 5px;
+            padding-right: 20px;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: #1B263B;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            min-width: 100px;
+            padding-right: 19px;
+            z-index: 10;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            color: white;
+            background-color: red;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .dropdown-menu a:hover {
+            background-color: darkred;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .choice-btn {
+            width: 90%;
+            max-width: 280px;
+            padding: 12px;
+            margin: 12px 0;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+        .sms-btn {
+            background-color: #00A8E8;
+        }
+        .sms-btn:hover {
+            background-color: #0077B6;
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+        }
+        .whatsapp-btn:hover {
+            background-color: #1DA851;
+        }
+        .steps-box {
+            background-color: #1B263B;
+            padding: 15px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 350px;
+            margin: 20px auto;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.6;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .steps-box h3 {
+            text-align: center;
+            color: #00A8E8;
+            font-size: 16px;
+        }
+        .steps-box ol {
+            padding-left: 18px;
+        }
+
+        /* Mobile Responsive Design */
+        @media (max-width: 480px) {
+            .navbar {
+                font-size: 16px;
+                padding: 10px;
+            }
+            .school-name {
+                font-size: 14px;
+            }
+            .hamburger-icon {
+                font-size: 16px;
+            }
+            .choice-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .steps-box {
+                font-size: 13px;
+                padding: 12px;
+            }
+            .steps-box h3 {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="school-name">Vishwamanava English Medium High School</div>
+        <div class="menu-container">
+            <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <a href="javascript:void(0)" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Select Messaging Method</h2>
+        <button class="choice-btn sms-btn" onclick="goToPage('sms.html')">Send via SMS</button>
+        <button class="choice-btn whatsapp-btn" onclick="goToPage('whatsaap.html')">Send via WhatsApp</button>
+    </div>
+
+    <div class="steps-box">
+        <h3>How to Use the Application</h3>
+        <ol>
+            <li>Select the Messaging method.</li>
+            <li>Click on the "Add Student" button.</li>
+            <li>Enter the student name, class, section, and their parent's phone number.</li>
+            <li>Click on the "Send Message" button to send the message.</li>
+            <li>It will redirect to the selected app; then click on "Send".</li>
+            <li>Press the back button twice to return to the same website.</li>            
+            <li>If you need to add multiple student details, click on "Add Another student" button.</li>            
+            <li>If you want to delete an entry, click the bin 🗑️ button.</li>
+            <li>Do not refresh the page in between the details entry.</li>
+        </ol>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        function logout() {
+            window.location.href = "index.html";
+        }
+
+        function goToPage(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

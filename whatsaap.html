@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Absence Notification</title>
+    <style>
+        html, body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background-color: #0D1B2A;
+            color: #E0E1DD;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #00A8E8;
+            color: white;
+            padding: 12px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+        }
+        .school-name {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 16px;
+        }
+        .menu-container {
+            position: relative;
+            display: inline-block;
+        }
+        .hamburger-icon {
+            font-size: 15px;
+            cursor: pointer;
+            padding: 5px;
+            padding-right: 20px;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: #1B263B;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            min-width: 100px;
+            padding-right: 19px;
+            z-index: 10;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px;
+            color: white;
+            background-color: red;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .dropdown-menu a:hover {
+            background-color: darkred;
+        }
+        h2 {
+            color: #00A8E8;
+            font-size: 18px;
+        }
+        form {
+            background-color: #1B263B;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+        }
+        input, select, button {
+            width: 95%;
+            padding: 8px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input, select {
+            background-color: #415A77;
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .send-btn {
+            width: 75%;
+            background-color: #00A8E8;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .send-btn:hover {
+            background-color: #0077B6;
+        }
+        .delete-btn {
+            width: 20%;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .student-entry {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #E0E1DD;
+            border-radius: 5px;
+            text-align: left;
+        }
+        #addStudentBtn {
+            background-color: #00A8E8;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #addStudentBtn:hover {
+            background-color: #0077B6;
+        }
+        .success-message {
+            color: #00FF00;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="school-name">Vishwamanava English Medium High School</div>
+        <div class="menu-container">
+            <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <a href="javascript:void(0)" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Send Absence Notification via WhatsApp</h2>
+    <form id="absenceForm">
+        <div id="studentsContainer"></div>
+        <button type="button" id="addStudentBtn" onclick="addStudent()">Add Student</button>
+    </form>
+    <script>
+
+        function toggleMenu() {
+            let menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        // Handle logout action
+        function logout() {
+            window.location.href = "index.html"; // Redirect to the login page or homepage after logout
+        }
+
+        function addStudent() {
+            let container = document.getElementById("studentsContainer");
+            let newEntry = document.createElement("div");
+            newEntry.classList.add("student-entry");
+            let studentId = Date.now();
+            newEntry.innerHTML = `
+                <label>Student Name:</label>
+                <input type="text" class="name" required placeholder="Enter student name"><br><br>
+                
+                <label>Class:</label>
+                <select class="class" required>
+                    <option value="">Select Class</option>
+                    <option value="8th">8th</option>
+                    <option value="9th">9th</option>
+                    <option value="10th">10th</option>
+                </select><br><br>
+                
+                <label>Section:</label>
+                <select class="section" required>
+                    <option value="">Select Section</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select><br><br>
+                
+                <label>Parent's WhatsApp Number (10 digits):</label>
+                <input type="tel" class="phone" required pattern="\\d{10}" title="Phone number must be exactly 10 digits" placeholder="Enter 10-digit phone number"><br><br>
+                
+                <div class="action-buttons">
+                    <button type="button" class="send-btn" onclick="sendWhatsApp(this)">Send Message</button>
+                    <button type="button" class="delete-btn" onclick="deleteStudent(this)">🗑</button>
+                </div>
+            `;
+            container.appendChild(newEntry);
+            document.getElementById("addStudentBtn").innerText = "Add Another Student";
+        }
+
+        function deleteStudent(button) {
+            let studentEntry = button.parentElement.parentElement;
+            studentEntry.remove();
+        }
+
+        function sendWhatsApp(button) {
+            let student = button.parentElement.parentElement;
+            let name = student.querySelector(".name");
+            let studentClass = student.querySelector(".class");
+            let section = student.querySelector(".section");
+            let phone = student.querySelector(".phone");
+
+            if (!name.checkValidity() || !studentClass.checkValidity() || !section.checkValidity() || !phone.checkValidity()) {
+                name.reportValidity();
+                studentClass.reportValidity();
+                section.reportValidity();
+                phone.reportValidity();
+                return;
+            }
+
+            let date = new Date();
+            let formattedDate = (`0${date.getDate()}`).slice(-2) + "/" + (`0${date.getMonth() + 1}`).slice(-2) + "/" + date.getFullYear();
+            
+            let message = `ನಿಮ್ಮ ಮಗು ${name.value}, ${studentClass.value} ${section.value} ತರಗತಿಯಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡುತ್ತಿದ್ದು, ದಿನಾಂಕ: ${formattedDate} ರಂದು ಶಾಲೆಗೆ ಹಾಜರಾಗಿರುವುದಿಲ್ಲ.\nವಿಶ್ವಮಾನವ ಅಂಗ್ಲ ಮಾಧ್ಯಮ ಪ್ರೌಢ ಶಾಲೆ.\n\nYour child, ${name.value} of ${studentClass.value} ${section.value} is absent for classes today. ${formattedDate}\nVishwamanava English Medium High School.`;
+
+            let whatsappUrl = `https://wa.me/91${phone.value}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, "_blank");
+            student.innerHTML = `
+                <p class="success-message">
+                    ✅ <span style="color: #00FF00;">${name.value}</span> - 
+                    <span style="color: #00FF00;">${studentClass.value} ${section.value}</span> 
+                    Successfully Sent!
+                </p>
+            `;
+        }
+    </script>
+</body>
+</html>
