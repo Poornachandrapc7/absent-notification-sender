@@ -1,6 +1,6 @@
 # Absnet Notification Sender
 
-visit this page : (https://amazon-clone-pc7.netlify.app/)
+visit this page : ([(https://vmhsemabsms.netlify.app/)](https://vmhsemabsms.netlify.app/))
 
 ## Overview
 The **Absnet Notification Sender** is a web application designed to notify teachers or guardians about student absences via WhatsApp. It allows users (such as teachers or administrators) to enter student data and send automated absence notifications to a designated WhatsApp number.
